@@ -4,7 +4,7 @@ Improved Python Koans
 
 Improved Python Koans is based on gregmalcolm's python koans project
 at https://github.com/gregmalcolm/python_koans but add more python koans and
- support optional koans.
+support optional koans.
 
 Python Koans is a port of Edgecase's "Ruby Koans" which can be found
 at http://rubykoans.com/.
