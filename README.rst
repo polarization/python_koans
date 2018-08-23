@@ -1,9 +1,10 @@
 ============
-Python Koans
+Improved Python Koans
 ============
 
-.. image:: https://travis-ci.org/gregmalcolm/python_koans.png?branch=master
-   :target: http://travis-ci.org/gregmalcolm/python_koans
+Improved Python Koans is based on gregmalcolm's python koans project
+at https://github.com/gregmalcolm/python_koans but add more python koans and
+ support optional koans.
 
 Python Koans is a port of Edgecase's "Ruby Koans" which can be found
 at http://rubykoans.com/.
@@ -35,11 +36,7 @@ Downloading Python Koans
 
 Python Koans is available through git on Github:
 
-    http://github.com/gregmalcolm/python_koans
-
-It is also mirrored on bitbucket for Mercurial users:
-
-    http://bitbucket.org/gregmalcolm/python_koans
+    http://github.com/polarization/python_koans
 
 Either site will allow you to download the source as a zip/gz/bz2.
 
@@ -53,7 +50,7 @@ need to install the Python interpreter.
 At this time of writing, there are two versions of the Python Koans:
 
 * one for use with Python 2.7 (earlier versions are no longer supported)
-* one for Python 3.1+
+* one for Python 3.3+
 
 You should be able to work with newer Python versions, but older ones will
 likely give you problems.
@@ -96,10 +93,14 @@ or::
 
     python3 contemplate_koans.py
 
-In my case I'm using Python 3 with windows, so I fire up my command
-shell (cmd.exe) and run this:
+If you would like to run optional koans, python
+koans\\python_VERSION folder and run::
 
-.. image:: https://user-images.githubusercontent.com/2614930/28401747-f723ff00-6cd0-11e7-9b9a-a6993b753cf6.png
+   python contemplate_optional_koans.py
+
+or::
+
+   python contemplate_optional_koans.py
 
 Apparently a test failed::
 
@@ -108,58 +109,6 @@ Apparently a test failed::
 It also tells me exactly where the problem in, its an assert on line 12
 of .\\koans\\about_asserts.py. This one is easy, just change False to True to
 make the test pass.
-
-Sooner or later you will likely encounter tests where you are not sure what the
-expected value should be. For example::
-
-    class Dog:
-        pass
-
-    def test_objects_are_objects(self):
-        fido = self.Dog()
-        self.assertEqual(__, isinstance(fido, object))
-
-This is where the Python Command Line can come in handy. In this case I can
-fire up the command line, recreate the scenario and run queries:
-
-.. image:: https://user-images.githubusercontent.com/2614930/28401750-f9dcb296-6cd0-11e7-98eb-c20318eada33.png
-
-Sniffer Support
----------------
-
-Sniffer allows you to run the tests continuously. If you modify any files files
-in the koans directory, it will rerun the tests.
-
-To set this up, you need to install sniffer::
-
-    $ pip install sniffer
-
-You should also run one of these libraries depending on your system. This will
-automatically trigger sniffer when a file changes, otherwise sniffer will have
-to poll to see if the files have changed.
-
-On Linux::
-
-    $ pip install pyinotify
-
-On Windows::
-
-    $ pip install pywin32
-    
-(If that failed, try::
-    
-    $ pip install pypiwin32
-)
-
-On Mac OS X::
-
-    $ pip install MacFSEvents
-
-Once it is set up, you just run::
-
-    $ sniffer
-
-Just modify one of the koans files and you'll see that the tests are triggered automatically. Sniffer is controlled by `scent.py`
 
 Getting the Most From the Koans
 -------------------------------
@@ -178,36 +127,19 @@ Quoting the Ruby Koans instructions::
 Content
 -------
 
-The Python Koans is a made up of about 2/3 Ruby Koans ported material and 1/3
-Python specific tests. The content ported from Ruby Koans includes all the
-assignment projects.
-
 Content for Python 3 is a little different to the Python 2 flavor due to big
 changes between the two different versions of the language.  For example, in
 the Python 2 variant the differences between old and new style classes are
 covered. This loses relevance in in the Python 3 version, but there are some
 extra tests covering new functionality.
 
-
-Finding More Koan Projects
---------------------------
-
-There are number of other great Koan projects out there for various languages
-and frameworks. Most of them can be found in github. Also there is a little
-koans activity on bitbucket.
-
-* Github koan projects:
-    https://github.com/search?q=koans&ref=cmdform
-
-* Bitbucket koan projects:
-    https://bitbucket.org/repo/all?name=koans
-
 Acknowledgments
 ---------------
 
-Thanks go to Jim Weirich and Joe O'Brien for the original Ruby Koans that the
-Python Koans is based on! Also the Ruby Koans in turn borrows from Metakoans
-so thanks also go to Ara Howard for that!
+Thanks go to gregmalcolm for the original Python Koans that the Improved
+Python Koans is based on! Thanks go to Jim Weirich and Joe O'Brien
+for the original Ruby Koans that the Python Koans is based on! Also the Ruby
+Koans in turn borrows from Metakoans so thanks also go to Ara Howard for that!
 
 Also thanks to everyone who has contributed to Python Koans! I got a great
 headstart by taking over a code base initiated by the combined Mikes of
