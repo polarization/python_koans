@@ -14,6 +14,7 @@ class Mountain:
         self.stream = WritelnDecorator(sys.stdout)
         self.tests = path_to_enlightenment.koans()
         self.lesson = Sensei(self.stream)
+        self.optional_tests = path_to_enlightenment.koans("optional_koans.txt")
 
     def walk_the_path(self, args=None):
         """Run the koans tests with a custom runner output."""
@@ -24,4 +25,17 @@ class Mountain:
             self.tests = unittest.TestLoader().loadTestsFromNames(test_names)
         self.tests(self.lesson)
         self.lesson.learn()
+        return self.lesson
+
+    def walk_the_optional_path(self, args=None):
+        """Run the optional koans tests with a custom runner output."""
+
+        if args and len(args) >= 2:
+            args.pop(0)
+            test_names = ["optional_koans." + test_name for test_name in args]
+            self.optional_tests = unittest.TestLoader().loadTestsFromNames(
+                test_names)
+        self.lesson.run_optional = True
+        self.optional_tests(self.lesson)
+        self.lesson.learn_optional()
         return self.lesson

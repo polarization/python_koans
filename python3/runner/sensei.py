@@ -20,9 +20,14 @@ class Sensei(MockableTestResult):
         self.stream = stream
         self.prevTestClassName = None
         self.tests = path_to_enlightenment.koans()
+        self.optional_tests = path_to_enlightenment.koans("optional_koans.txt")
         self.pass_count = 0
-        self.lesson_pass_count  = 0
+        self.lesson_pass_count = 0
         self.all_lessons = None
+        self.optional_pass_count = 0
+        self.optional_lesson_pass_count = 0
+        self.all_optional_lessons = None
+        self.run_optional = False
 
     def startTest(self, test):
         MockableTestResult.startTest(self, test)
@@ -33,8 +38,14 @@ class Sensei(MockableTestResult):
                 self.stream.writeln()
                 self.stream.writeln("{0}{1}Thinking {2}".format(
                     Fore.RESET, Style.NORMAL, helper.cls_name(test)))
-                if helper.cls_name(test) not in ['AboutAsserts', 'AboutExtraCredit']:
+                if helper.cls_name(test) not in ['AboutAsserts',
+                                                 'AboutExtraCredit'] and \
+                        not self.run_optional:
                     self.lesson_pass_count += 1
+                if helper.cls_name(test) not in ['AboutOptionalAsserts',
+                                                 'AboutExtraOptionalCredit'] \
+                        and self.run_optional:
+                    self.optional_lesson_pass_count += 1
 
     def addSuccess(self, test):
         if self.passesCount():
@@ -43,7 +54,10 @@ class Sensei(MockableTestResult):
                 "  {0}{1}{2} has expanded your awareness.{3}{4}" \
                 .format(Fore.GREEN, Style.BRIGHT, test._testMethodName, \
                 Fore.RESET, Style.NORMAL))
-            self.pass_count += 1
+            if not self.run_optional:
+                self.pass_count += 1
+            else:
+                self.optional_pass_count += 1
 
     def addError(self, test, err):
         # Having 1 list for errors and 1 list for failures would mess with
@@ -100,6 +114,27 @@ class Sensei(MockableTestResult):
         self.stream.writeln(
             "\nIf you want more, take a look at about_extra_credit_task.py{0}{1}" \
             .format(Fore.RESET, Style.NORMAL))
+
+    def learn_optional(self):
+        self.errorReport()
+
+        self.stream.writeln("")
+        self.stream.writeln("")
+        self.stream.writeln(self.report_optional_progress())
+        if self.failures:
+            self.stream.writeln(self.report_optional_remaining())
+        self.stream.writeln("")
+        self.stream.writeln(self.say_something_zenlike())
+
+        if self.failures:
+            sys.exit(-1)
+        self.stream.writeln(
+            "\n{0}**************************************************"
+            .format(Fore.RESET))
+        self.stream.writeln("\n{0}That was the last one, well done!"
+                            .format(Fore.MAGENTA))
+        self.stream.writeln(
+            "\nIf you want more, take a look at about_extra_credit_task.py")
 
     def errorReport(self):
         problem = self.firstFailure()
@@ -158,6 +193,12 @@ class Sensei(MockableTestResult):
             if m and m.group(0):
                 stack_text += line + '\n'
 
+        if not stack_text:
+            for line in lines:
+                m = re.search("^.*[/\\\\]optional_koans[/\\\\].*$", line)
+                if m and m.group(0):
+                    stack_text += line + '\n'
+
 
         stack_text = stack_text.replace(sep, '\n').strip('\n')
         stack_text = re.sub(r'(about_\w+.py)',
@@ -174,6 +215,14 @@ class Sensei(MockableTestResult):
                 self.pass_count*100//self.total_koans(),
                 self.total_lessons())
 
+    def report_optional_progress(self):
+        return "You have completed {0} ({2} %) optional koans and " \
+               "{1} (out of {3}) lessons.".format(
+                   self.optional_pass_count,
+                   self.optional_lesson_pass_count,
+                   self.optional_pass_count * 100 / self.total_optional_koans(),
+                   self.total_optional_lessons())
+
     def report_remaining(self):
         koans_remaining = self.total_koans() - self.pass_count
         lessons_remaining = self.total_lessons() - self.lesson_pass_count
@@ -182,6 +231,17 @@ class Sensei(MockableTestResult):
             "reaching enlightenment.".format(
                 koans_remaining,
                 lessons_remaining)
+
+    def report_optional_remaining(self):
+        optional_koans_remaining = self.total_optional_koans() - \
+            self.optional_pass_count
+        optional_lessons_remaining = self.total_optional_lessons() - \
+            self.optional_lesson_pass_count
+
+        return "You are now {0} optional koans and {1} lessons away from " \
+               "reaching enlightenment.".format(
+                   optional_koans_remaining,
+                   optional_lessons_remaining)
 
     # Hat's tip to Tim Peters for the zen statements from The 'Zen
     # of Python' (http://www.python.org/dev/peps/pep-0020/)
@@ -255,8 +315,19 @@ class Sensei(MockableTestResult):
         else:
           return 0
 
+    def total_optional_lessons(self):
+        all_optional_lessons = self.filter_all_optional_lessons()
+
+        if all_optional_lessons:
+            return len(all_optional_lessons)
+        else:
+            return 0
+
     def total_koans(self):
         return self.tests.countTestCases()
+
+    def total_optional_koans(self):
+        return self.optional_tests.countTestCases()
 
     def filter_all_lessons(self):
         cur_dir = os.path.split(os.path.realpath(__file__))[0]
@@ -267,3 +338,13 @@ class Sensei(MockableTestResult):
                                       self.all_lessons))
 
         return self.all_lessons
+
+    def filter_all_optional_lessons(self):
+        cur_dir = os.path.split(os.path.realpath(__file__))[0]
+        if not self.all_optional_lessons:
+            self.all_optional_lessons = glob.glob(
+                '{0}/../optional_koans/about*.py'.format(cur_dir))
+            self.all_optional_lessons = list(filter(
+                lambda filename: "about_optional_extra_credit" not in filename,
+                self.all_optional_lessons))
+        return self.all_optional_lessons
