@@ -12,7 +12,8 @@ from .mockable_test_result import MockableTestResult
 from runner import path_to_enlightenment
 
 from libs.colorama import init, Fore, Style
-init() # init colorama
+init()  # init colorama
+
 
 class Sensei(MockableTestResult):
     def __init__(self, stream):
@@ -50,10 +51,10 @@ class Sensei(MockableTestResult):
     def addSuccess(self, test):
         if self.passesCount():
             MockableTestResult.addSuccess(self, test)
-            self.stream.writeln( \
-                "  {0}{1}{2} has expanded your awareness.{3}{4}" \
-                .format(Fore.GREEN, Style.BRIGHT, test._testMethodName, \
-                Fore.RESET, Style.NORMAL))
+            self.stream.writeln(
+                "  {0}{1}{2} has expanded your awareness.{3}{4}"
+                .format(Fore.GREEN, Style.BRIGHT, test._testMethodName,
+                        Fore.RESET, Style.NORMAL))
             if not self.run_optional:
                 self.pass_count += 1
             else:
@@ -65,7 +66,8 @@ class Sensei(MockableTestResult):
         self.addFailure(test, err)
 
     def passesCount(self):
-        return not (self.failures and helper.cls_name(self.failures[0][0]) != self.prevTestClassName)
+        return not (self.failures and helper.cls_name(
+            self.failures[0][0]) != self.prevTestClassName)
 
     def addFailure(self, test, err):
         MockableTestResult.addFailure(self, test, err)
@@ -73,8 +75,8 @@ class Sensei(MockableTestResult):
     def sortFailures(self, testClassName):
         table = list()
         for test, err in self.failures:
-            if helper.cls_name(test) ==  testClassName:
-                m = re.search("(?<= line )\d+" ,err)
+            if helper.cls_name(test) == testClassName:
+                m = re.search("(?<= line )\d+", err)
                 if m:
                     tup = (int(m.group(0)), test, err)
                     table.append(tup)
@@ -85,7 +87,8 @@ class Sensei(MockableTestResult):
             return None
 
     def firstFailure(self):
-        if not self.failures: return None
+        if not self.failures:
+            return None
 
         table = self.sortFailures(helper.cls_name(self.failures[0][0]))
 
@@ -101,18 +104,19 @@ class Sensei(MockableTestResult):
         self.stream.writeln("")
         self.stream.writeln(self.report_progress())
         if self.failures:
-          self.stream.writeln(self.report_remaining())
+            self.stream.writeln(self.report_remaining())
         self.stream.writeln("")
         self.stream.writeln(self.say_something_zenlike())
 
-        if self.failures: sys.exit(-1)
+        if self.failures:
+            sys.exit(-1)
         self.stream.writeln(
-            "\n{0}**************************************************" \
+            "\n{0}**************************************************"
             .format(Fore.RESET))
-        self.stream.writeln("\n{0}That was the last one, well done!" \
-            .format(Fore.MAGENTA))
+        self.stream.writeln("\n{0}That was the last one, well done!"
+                            .format(Fore.MAGENTA))
         self.stream.writeln(
-            "\nIf you want more, take a look at about_extra_credit_task.py{0}{1}" \
+            "\nIf you want more, take a look at about_extra_credit_task.py{0}{1}"
             .format(Fore.RESET, Style.NORMAL))
 
     def learn_optional(self):
@@ -138,32 +142,47 @@ class Sensei(MockableTestResult):
 
     def errorReport(self):
         problem = self.firstFailure()
-        if not problem: return
+        if not problem:
+            return
         test, err = problem
-        self.stream.writeln("  {0}{1}{2} has damaged your "
-          "karma.".format(Fore.RED, Style.BRIGHT, test._testMethodName))
+        self.stream.writeln(
+            "  {0}{1}{2} has damaged your "
+            "karma.".format(
+                Fore.RED,
+                Style.BRIGHT,
+                test._testMethodName))
 
-        self.stream.writeln("\n{0}{1}You have not yet reached enlightenment ..." \
-            .format(Fore.RESET, Style.NORMAL))
-        self.stream.writeln("{0}{1}{2}".format(Fore.RED, \
-            Style.BRIGHT, self.scrapeAssertionError(err)))
+        self.stream.writeln(
+            "\n{0}{1}You have not yet reached enlightenment ..." .format(
+                Fore.RESET, Style.NORMAL))
+        self.stream.writeln(
+            "{0}{1}{2}".format(
+                Fore.RED,
+                Style.BRIGHT,
+                self.scrapeAssertionError(err)))
         self.stream.writeln("")
-        self.stream.writeln("{0}{1}Please meditate on the following code:" \
-            .format(Fore.RESET, Style.NORMAL))
-        self.stream.writeln("{0}{1}{2}{3}{4}".format(Fore.YELLOW, Style.BRIGHT, \
-            self.scrapeInterestingStackDump(err), Fore.RESET, Style.NORMAL))
+        self.stream.writeln("{0}{1}Please meditate on the following code:"
+                            .format(Fore.RESET, Style.NORMAL))
+        self.stream.writeln(
+            "{0}{1}{2}{3}{4}".format(
+                Fore.YELLOW,
+                Style.BRIGHT,
+                self.scrapeInterestingStackDump(err),
+                Fore.RESET,
+                Style.NORMAL))
 
     def scrapeAssertionError(self, err):
-        if not err: return ""
+        if not err:
+            return ""
 
         error_text = ""
         count = 0
         for line in err.splitlines():
-            m = re.search("^[^^ ].*$",line)
+            m = re.search("^[^^ ].*$", line)
             if m and m.group(0):
-                count+=1
+                count += 1
 
-            if count>1:
+            if count > 1:
                 error_text += ("  " + line.strip()).rstrip() + '\n'
         return error_text.strip('\n')
 
@@ -177,11 +196,11 @@ class Sensei(MockableTestResult):
 
         stack_text = ""
         for line in lines:
-            m = re.search("^  File .*$",line)
+            m = re.search("^  File .*$", line)
             if m and m.group(0):
                 stack_text += '\n' + line
 
-            m = re.search("^    \w(\w)+.*$",line)
+            m = re.search("^    \w(\w)+.*$", line)
             if m and m.group(0):
                 stack_text += sep + line
 
@@ -189,7 +208,7 @@ class Sensei(MockableTestResult):
 
         stack_text = ""
         for line in lines:
-            m = re.search("^.*[/\\\\]koans[/\\\\].*$",line)
+            m = re.search("^.*[/\\\\]koans[/\\\\].*$", line)
             if m and m.group(0):
                 stack_text += line + '\n'
 
@@ -199,20 +218,27 @@ class Sensei(MockableTestResult):
                 if m and m.group(0):
                     stack_text += line + '\n'
 
-
         stack_text = stack_text.replace(sep, '\n').strip('\n')
-        stack_text = re.sub(r'(about_\w+.py)',
-                r"{0}\1{1}".format(Fore.BLUE, Fore.YELLOW), stack_text)
-        stack_text = re.sub(r'(line \d+)',
-                r"{0}\1{1}".format(Fore.BLUE, Fore.YELLOW), stack_text)
+        stack_text = re.sub(
+            r'(about_\w+.py)',
+            r"{0}\1{1}".format(
+                Fore.BLUE,
+                Fore.YELLOW),
+            stack_text)
+        stack_text = re.sub(
+            r'(line \d+)',
+            r"{0}\1{1}".format(
+                Fore.BLUE,
+                Fore.YELLOW),
+            stack_text)
         return stack_text
 
     def report_progress(self):
         return "You have completed {0} ({2} %) koans and " \
-                "{1} (out of {3}) lessons.".format(
+            "{1} (out of {3}) lessons.".format(
                 self.pass_count,
                 self.lesson_pass_count,
-                self.pass_count*100//self.total_koans(),
+                self.pass_count * 100 // self.total_koans(),
                 self.total_lessons())
 
     def report_optional_progress(self):
@@ -253,7 +279,7 @@ class Sensei(MockableTestResult):
         if self.failures:
             turn = self.pass_count % 37
 
-            zenness = "";
+            zenness = ""
             if turn == 0:
                 zenness = "Beautiful is better than ugly."
             elif turn == 1 or turn == 2:
@@ -300,7 +326,8 @@ class Sensei(MockableTestResult):
             else:
                 zenness = "Namespaces are one honking great idea -- " \
                           "let's do more of those!"
-            return "{0}{1}{2}{3}".format(Fore.CYAN, zenness, Fore.RESET, Style.NORMAL);
+            return "{0}{1}{2}{3}".format(
+                Fore.CYAN, zenness, Fore.RESET, Style.NORMAL)
         else:
             return "{0}Nobody ever expects the Spanish Inquisition." \
                 .format(Fore.CYAN)
@@ -311,9 +338,9 @@ class Sensei(MockableTestResult):
     def total_lessons(self):
         all_lessons = self.filter_all_lessons()
         if all_lessons:
-          return len(all_lessons)
+            return len(all_lessons)
         else:
-          return 0
+            return 0
 
     def total_optional_lessons(self):
         all_optional_lessons = self.filter_all_optional_lessons()
@@ -332,10 +359,12 @@ class Sensei(MockableTestResult):
     def filter_all_lessons(self):
         cur_dir = os.path.split(os.path.realpath(__file__))[0]
         if not self.all_lessons:
-            self.all_lessons = glob.glob('{0}/../koans/about*.py'.format(cur_dir))
-            self.all_lessons = list(filter(lambda filename:
-                                      "about_extra_credit" not in filename,
-                                      self.all_lessons))
+            self.all_lessons = glob.glob(
+                '{0}/../koans/about*.py'.format(cur_dir))
+            self.all_lessons = list(
+                filter(
+                    lambda filename: "about_extra_credit" not in filename,
+                    self.all_lessons))
 
         return self.all_lessons
 

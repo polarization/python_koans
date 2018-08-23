@@ -111,7 +111,7 @@ class AboutMethods(Koan):
         "shall"
         "not"
         pass
-        self.assertEqual(____, "Still got to this line" != None)
+        self.assertEqual(____, "Still got to this line" is not None)
 
     # ------------------------------------------------------------------
 
@@ -157,7 +157,7 @@ class AboutMethods(Koan):
         mangled when an instance is created."""
         rover = self.Dog()
         try:
-            #This may not be possible...
+            # This may not be possible...
             password = rover.__password()
         except Exception as ex:
             self.assertEqual(__, ex.__class__.__name__)

@@ -15,7 +15,7 @@ class AboutTriangleProject2(Koan):
         # E.g. this line:
         #   self.assertRaises(TriangleError, triangle, 0, 0, 0)
         # calls triangle(0, 0, 0)
-        
+
         # All sides should be greater than 0
         self.assertRaises(TriangleError, triangle, 0, 0, 0)
         self.assertRaises(TriangleError, triangle, 3, 4, -5)

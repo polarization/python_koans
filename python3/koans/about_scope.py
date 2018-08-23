@@ -6,7 +6,8 @@ from runner.koan import *
 from . import jims
 from . import joes
 
-counter = 0 # Global
+counter = 0  # Global
+
 
 class AboutScope(Koan):
     #
@@ -16,7 +17,8 @@ class AboutScope(Koan):
     #
 
     def test_dog_is_not_available_in_the_current_scope(self):
-        with self.assertRaises(___): fido = Dog()
+        with self.assertRaises(___):
+            fido = Dog()
 
     def test_you_can_reference_nested_classes_using_the_scope_operator(self):
         fido = jims.Dog()
@@ -26,7 +28,7 @@ class AboutScope(Koan):
         self.assertEqual(__, fido.identify())
         self.assertEqual(__, rover.identify())
 
-        self.assertEqual(__, type(fido) == type(rover))
+        self.assertEqual(__, isinstance(fido, type(rover)))
         self.assertEqual(__, jims.Dog == joes.Dog)
 
     # ------------------------------------------------------------------
@@ -38,10 +40,10 @@ class AboutScope(Koan):
         self.assertEqual(__, AboutScope.str == str)
 
     def test_nested_string_is_not_the_same_as_the_system_string(self):
-        self.assertEqual(__, self.str == type("HI"))
+        self.assertEqual(__, isinstance("HI", self.str))
 
     def test_str_without_self_prefix_stays_in_the_global_scope(self):
-        self.assertEqual(__, str == type("HI"))
+        self.assertEqual(__, isinstance("HI", str))
 
     # ------------------------------------------------------------------
 
@@ -83,6 +85,7 @@ class AboutScope(Koan):
 
     def local_access(self):
         stuff = 'eels'
+
         def from_the_league():
             stuff = 'this is a local shop for local people'
             return stuff
@@ -90,6 +93,7 @@ class AboutScope(Koan):
 
     def nonlocal_access(self):
         stuff = 'eels'
+
         def from_the_boosh():
             nonlocal stuff
             return stuff

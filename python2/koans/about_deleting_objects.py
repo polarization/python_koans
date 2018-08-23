@@ -64,7 +64,7 @@ class AboutDeletingObjects(Koan):
         def get_name(self):
             try:
                 return self._name
-            except:
+            except BaseException:
                 return "The man with no name"
 
         def set_name(self, name):
@@ -73,8 +73,8 @@ class AboutDeletingObjects(Koan):
         def del_name(self):
             del self._name
 
-        name = property(get_name, set_name, del_name, \
-            "Mr Eastwood's current alias")
+        name = property(get_name, set_name, del_name,
+                        "Mr Eastwood's current alias")
 
     def test_del_works_with_properties(self):
         cowboy = self.ClintEastwood()

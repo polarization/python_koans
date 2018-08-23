@@ -40,7 +40,7 @@ class AboutInheritance(Koan):
         try:
             fido = self.Dog("Fido")
             fido.wag()
-        except StandardError as ex:
+        except Exception as ex:
             self.assertMatch(__, ex[0])
 
     def test_subclasses_can_modify_existing_behavior(self):

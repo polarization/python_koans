@@ -3,20 +3,21 @@
 
 from runner.koan import *
 
+
 class AboutIteration(Koan):
 
     def test_iterators_are_a_type(self):
-        it = iter(range(1,6))
+        it = iter(range(1, 6))
 
         total = 0
 
         for num in it:
             total += num
 
-        self.assertEqual(__ , total)
+        self.assertEqual(__, total)
 
     def test_iterating_with_next(self):
-        stages = iter(['alpha','beta','gamma'])
+        stages = iter(['alpha', 'beta', 'gamma'])
 
         try:
             self.assertEqual(__, next(stages))
@@ -79,13 +80,12 @@ class AboutIteration(Koan):
 
         self.assertEqual(__, name)
 
-
     # ------------------------------------------------------------------
 
-    def add(self,accum,item):
+    def add(self, accum, item):
         return accum + item
 
-    def multiply(self,accum,item):
+    def multiply(self, accum, item):
         return accum * item
 
     def test_reduce_will_blow_your_mind(self):
@@ -108,7 +108,7 @@ class AboutIteration(Koan):
     # ------------------------------------------------------------------
 
     def test_use_pass_for_iterations_with_no_body(self):
-        for num in range(1,5):
+        for num in range(1, 5):
             pass
 
         self.assertEqual(__, num)
@@ -117,7 +117,7 @@ class AboutIteration(Koan):
 
     def test_all_iteration_methods_work_on_any_sequence_not_just_lists(self):
         # Ranges are an iterable sequence
-        result = map(self.add_ten, range(1,4))
+        result = map(self.add_ten, range(1, 4))
         self.assertEqual(__, list(result))
 
         try:

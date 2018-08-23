@@ -46,7 +46,8 @@ class AboutMethodBindings(Koan):
         except AttributeError as ex:
             self.assertMatch(__, ex[0])
 
-    def test_setting_attributes_on_methods_by_accessing_the_inner_function(self):
+    def test_setting_attributes_on_methods_by_accessing_the_inner_function(
+            self):
         obj = Class()
         obj.method.im_func.cherries = 3
         self.assertEqual(__, obj.method.cherries)

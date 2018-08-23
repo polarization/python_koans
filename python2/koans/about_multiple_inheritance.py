@@ -94,11 +94,12 @@ class AboutMultipleInheritance(Koan):
         jeff = self.Spiderpig()
         try:
             jeff.set_name("Rover")
-        except:
+        except BaseException:
             self.fail("This should not happen")
         self.assertEqual(____, jeff.can_climb_walls())
 
-    def test_base_class_methods_can_affect_instance_variables_in_the_object(self):
+    def test_base_class_methods_can_affect_instance_variables_in_the_object(
+            self):
         jeff = self.Spiderpig()
         self.assertEqual(__, jeff.name)
 
@@ -109,7 +110,8 @@ class AboutMultipleInheritance(Koan):
         jeff = self.Spiderpig()
         self.assertEqual(__, jeff.color())
 
-    def test_super_class_methods_are_higher_priority_than_super_super_classes(self):
+    def test_super_class_methods_are_higher_priority_than_super_super_classes(
+            self):
         jeff = self.Spiderpig()
         self.assertEqual(__, jeff.legs())
 

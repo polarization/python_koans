@@ -26,7 +26,8 @@ class AboutModules(Koan):
         self.assertEqual(__, duck.name)
 
     def test_we_can_import_multiple_items_at_once(self):
-        import jims, joes
+        import jims
+        import joes
 
         jims_dog = jims.Dog()
         joes_dog = joes.Dog()

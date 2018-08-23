@@ -7,12 +7,14 @@
 
 from runner.koan import *
 
-def my_global_function(a,b):
+
+def my_global_function(a, b):
     return a + b
+
 
 class AboutMethods(Koan):
     def test_calling_a_global_function(self):
-        self.assertEqual(__, my_global_function(2,3))
+        self.assertEqual(__, my_global_function(2, 3))
 
     # NOTE: Wrong number of arguments is not a SYNTAX error, but a
     # runtime error.
@@ -24,8 +26,8 @@ class AboutMethods(Koan):
 
         # Note, the text comparison works for Python 3.2
         # It has changed in the past and may change in the future
-        self.assertRegex(msg,
-            r'my_global_function\(\) missing 2 required positional arguments')
+        self.assertRegex(
+            msg, r'my_global_function\(\) missing 2 required positional arguments')
 
         try:
             my_global_function(1, 2, 3)
@@ -73,13 +75,13 @@ class AboutMethods(Koan):
         def function_with_the_same_name(a, b):
             return a * b
 
-        self.assertEqual(__, function_with_the_same_name(3,4))
+        self.assertEqual(__, function_with_the_same_name(3, 4))
 
     def test_calling_methods_in_same_class_with_explicit_receiver(self):
         def function_with_the_same_name(a, b):
             return a * b
 
-        self.assertEqual(__, self.function_with_the_same_name(3,4))
+        self.assertEqual(__, self.function_with_the_same_name(3, 4))
 
     # ------------------------------------------------------------------
 
@@ -110,7 +112,7 @@ class AboutMethods(Koan):
         "shall"
         "not"
         pass
-        self.assertEqual(____, "Still got to this line" != None)
+        self.assertEqual(____, "Still got to this line" is not None)
 
     # ------------------------------------------------------------------
 
@@ -139,7 +141,7 @@ class AboutMethods(Koan):
             return "wagging"
 
         def __password(self):
-            return 'password' # Genius!
+            return 'password'  # Genius!
 
     def test_calling_methods_in_other_objects(self):
         rover = self.Dog()
@@ -151,9 +153,11 @@ class AboutMethods(Koan):
         # This is a little rude, but legal
         self.assertEqual(__, rover._tail())
 
-    def test_attributes_with_double_underscore_prefixes_are_subject_to_name_mangling(self):
+    def test_attributes_with_double_underscore_prefixes_are_subject_to_name_mangling(
+            self):
         rover = self.Dog()
-        with self.assertRaises(___): password = rover.__password()
+        with self.assertRaises(___):
+            password = rover.__password()
 
         # But this still is!
         self.assertEqual(__, rover._Dog__password())

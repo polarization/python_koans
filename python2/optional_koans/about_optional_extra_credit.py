@@ -12,6 +12,7 @@
 
 from runner.koan import *
 
+
 class AboutExtraOptionalCredit(Koan):
     # Write tests here. If you need extra test classes add them to the
     # test suite in runner/path_to_enlightenment.py

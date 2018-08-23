@@ -15,8 +15,8 @@ class AboutGenerators(Koan):
 
     def test_generating_values_on_the_fly(self):
         result = list()
-        bacon_generator = (n + ' bacon' for \
-                n in ['crunchy', 'veggie', 'danish'])
+        bacon_generator = (n + ' bacon' for
+                           n in ['crunchy', 'veggie', 'danish'])
         for bacon in bacon_generator:
             result.append(bacon)
         self.assertEqual(__, result)

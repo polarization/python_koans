@@ -6,6 +6,7 @@ from libs.mock import *
 
 from runner.mountain import Mountain
 
+
 class TestMountain(unittest.TestCase):
 
     def setUp(self):

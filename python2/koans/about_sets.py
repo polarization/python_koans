@@ -7,7 +7,7 @@ from runner.koan import *
 class AboutSets(Koan):
     def test_sets_make_keep_lists_unique(self):
         highlanders = ['MacLeod', 'Ramirez', 'MacLeod', 'Matunas',
-            'MacLeod', 'Malcolm', 'MacLeod']
+                       'MacLeod', 'Malcolm', 'MacLeod']
 
         there_can_only_be_only_one = set(highlanders)
 

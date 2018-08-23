@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from runner.koan import *
+from functools import reduce
 
 
 class AboutIteration(Koan):

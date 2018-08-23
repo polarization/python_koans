@@ -23,6 +23,7 @@ from runner.koan import *
 #         __init__.py
 #         a_module.py
 
+
 class AboutPackages(Koan):
     def test_subfolders_can_form_part_of_a_module_package(self):
         # Import ./a_package_folder/a_module.py
@@ -53,7 +54,8 @@ class AboutPackages(Koan):
         # almost impossible. So always leave the starting python script in
         # a folder which can reach everything else.
 
-    def test_import_a_module_in_a_subfolder_folder_using_an_absolute_path(self):
+    def test_import_a_module_in_a_subfolder_folder_using_an_absolute_path(
+            self):
         # Import contemplate_koans.py/koans/a_package_folder/a_module.py
         from koans.a_package_folder.a_module import Duck
 

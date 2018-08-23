@@ -30,7 +30,7 @@ class AboutScope(Koan):
         self.assertEqual(__, fido.identify())
         self.assertEqual(__, rover.identify())
 
-        self.assertEqual(____, type(fido) == type(rover))
+        self.assertEqual(____, isinstance(fido, type(rover)))
         self.assertEqual(____, jims.Dog == joes.Dog)
 
     # ------------------------------------------------------------------
@@ -42,10 +42,10 @@ class AboutScope(Koan):
         self.assertEqual(____, AboutScope.str == str)
 
     def test_nested_string_is_not_the_same_as_the_system_string(self):
-        self.assertEqual(____, self.str == type("HI"))
+        self.assertEqual(____, isinstance("HI", self.str))
 
     def test_str_without_self_prefix_stays_in_the_global_scope(self):
-        self.assertEqual(____, str == type("HI"))
+        self.assertEqual(____, isinstance("HI", str))
 
     # ------------------------------------------------------------------
 

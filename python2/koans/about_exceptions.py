@@ -20,16 +20,16 @@ class AboutExceptions(Koan):
         result = None
         try:
             self.fail("Oops")
-        except StandardError as ex:
+        except Exception as ex:
             result = 'exception handled'
 
         self.assertEqual(__, result)
 
-        self.assertEqual(____, isinstance(ex, StandardError))
+        self.assertEqual(____, isinstance(ex, Exception))
         self.assertEqual(____, isinstance(ex, RuntimeError))
 
-        self.assertTrue(issubclass(RuntimeError, StandardError), \
-            "RuntimeError is a subclass of StandardError")
+        self.assertTrue(issubclass(RuntimeError, Exception),
+                        "RuntimeError is a subclass of StandardError")
 
         self.assertEqual(__, ex[0])
 
@@ -59,7 +59,7 @@ class AboutExceptions(Koan):
         result = None
         try:
             self.fail("Oops")
-        except:
+        except BaseException:
             # no code here
             pass
         finally:

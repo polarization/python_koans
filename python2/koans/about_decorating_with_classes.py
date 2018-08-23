@@ -71,11 +71,11 @@ class AboutDecoratingWithClasses(Koan):
     # ------------------------------------------------------------------
 
     def sound_check(self):
-        #Note: no decorator
+        # Note: no decorator
         return "Testing..."
 
     def test_what_a_decorator_is_doing_to_a_function(self):
-        #wrap the function with the decorator
+        # wrap the function with the decorator
         self.sound_check = self.doubleit(self.sound_check)
 
         self.assertEqual(__, self.sound_check())

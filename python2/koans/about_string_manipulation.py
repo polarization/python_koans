@@ -22,8 +22,8 @@ class AboutStringManipulation(Koan):
         import math  # import a standard python module with math functions
 
         decimal_places = 4
-        string = "The square root of 5 is {0:.{1}f}".format(math.sqrt(5), \
-            decimal_places)
+        string = "The square root of 5 is {0:.{1}f}".format(math.sqrt(5),
+                                                            decimal_places)
         self.assertEqual(__, string)
 
     def test_you_can_get_a_substring_from_a_string(self):

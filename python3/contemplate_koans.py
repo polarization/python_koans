@@ -20,15 +20,16 @@ if __name__ == '__main__':
               "    python3 contemplate_koans.py\n")
     else:
         if sys.version_info < (3, 3):
-            print("\n" +
-                  "********************************************************\n" +
-                  "WARNING:\n" +
-                  "This version of Python Koans was designed for " +
-                  "Python 3.3 or greater.\n" +
-                  "Your version of Python is older, so you may run into " +
-                  "problems!\n\n" +
-                  "But lets see how far we get...\n" +
-                  "********************************************************\n")
+            print(
+                "\n" +
+                "********************************************************\n" +
+                "WARNING:\n" +
+                "This version of Python Koans was designed for " +
+                "Python 3.3 or greater.\n" +
+                "Your version of Python is older, so you may run into " +
+                "problems!\n\n" +
+                "But lets see how far we get...\n" +
+                "********************************************************\n")
 
         from runner.mountain import Mountain
 

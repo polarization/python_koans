@@ -23,6 +23,7 @@ __all__ = (
 
 __version__ = '0.6.0 modified by Greg Malcolm'
 
+
 class SentinelObject(object):
     def __init__(self, name):
         self.name = name
@@ -43,12 +44,17 @@ sentinel = Sentinel()
 
 DEFAULT = sentinel.DEFAULT
 
+
 class OldStyleClass:
     pass
+
+
 ClassType = type(OldStyleClass)
+
 
 def _is_magic(name):
     return '__{0!s}__'.format(name[2:-2]) == name
+
 
 def _copy(value):
     if type(value) in (dict, list, tuple, set):
@@ -73,7 +79,6 @@ class Mock(object):
 
         self.reset_mock()
 
-
     def reset_mock(self):
         self.called = False
         self.call_args = None
@@ -85,7 +90,6 @@ class Mock(object):
         if isinstance(self._return_value, Mock):
             self._return_value.reset_mock()
 
-
     def __get_return_value(self):
         if self._return_value is DEFAULT:
             self._return_value = Mock()
@@ -95,7 +99,6 @@ class Mock(object):
         self._return_value = value
 
     return_value = property(__get_return_value, __set_return_value)
-
 
     def __call__(self, *args, **kwargs):
         self.called = True
@@ -116,7 +119,7 @@ class Mock(object):
         if self.side_effect is not None:
             if (isinstance(self.side_effect, Exception) or
                 isinstance(self.side_effect, (type, ClassType)) and
-                issubclass(self.side_effect, Exception)):
+                    issubclass(self.side_effect, Exception)):
                 raise self.side_effect
 
             ret_val = self.side_effect(*args, **kwargs)
@@ -129,11 +132,11 @@ class Mock(object):
             ret_val = self.return_value
         return ret_val
 
-
     def __getattr__(self, name):
         if self._methods is not None:
             if name not in self._methods:
-                raise AttributeError("Mock object has no attribute '{0!s}'".format(name))
+                raise AttributeError(
+                    "Mock object has no attribute '{0!s}'".format(name))
         elif _is_magic(name):
             raise AttributeError(name)
 
@@ -145,9 +148,10 @@ class Mock(object):
 
         return self._children[name]
 
-
     def assert_called_with(self, *args, **kwargs):
-        assert self.call_args == (args, kwargs), 'Expected: {0!s}\nCalled with: {1!s}'.format((args, kwargs), self.call_args)
+        assert self.call_args == (
+            args, kwargs), 'Expected: {0!s}\nCalled with: {1!s}'.format(
+            (args, kwargs), self.call_args)
 
 
 def _dot_lookup(thing, comp, import_path):
@@ -178,7 +182,6 @@ class _patch(object):
         self.create = create
         self.has_local = False
 
-
     def __call__(self, func):
         if hasattr(func, 'patchings'):
             func.patchings.append(self)
@@ -204,7 +207,6 @@ class _patch(object):
                                                 func.func_code.co_firstlineno)
         return patched
 
-
     def get_original(self):
         target = self.target
         name = self.attribute
@@ -218,9 +220,10 @@ class _patch(object):
                 # for instances of classes with slots, they have no __dict__
                 original = getattr(target, name)
         elif not create and not hasattr(target, name):
-            raise AttributeError("{0!s} does not have the attribute {1!r}".format(target, name))
+            raise AttributeError(
+                "{0!s} does not have the attribute {1!r}".format(
+                    target, name))
         return original
-
 
     def __enter__(self):
         new, spec, = self.new, self.spec
@@ -228,7 +231,7 @@ class _patch(object):
         if new is DEFAULT:
             # XXXX what if original is DEFAULT - shouldn't use it as a spec
             inherit = False
-            if spec == True:
+            if spec:
                 # set spec to the object we are replacing
                 spec = original
                 if isinstance(spec, (type, ClassType)):
@@ -239,7 +242,6 @@ class _patch(object):
         self.temp_original = original
         setattr(self.target, self.attribute, new)
         return new
-
 
     def __exit__(self, *_):
         if self.temp_original is not DEFAULT:
@@ -257,10 +259,11 @@ def patch(target, new=DEFAULT, spec=None, create=False):
     try:
         target, attribute = target.rsplit('.', 1)
     except (TypeError, ValueError):
-        raise TypeError("Need a valid target to patch. You supplied: {0!r}".format(target,))
+        raise TypeError(
+            "Need a valid target to patch. You supplied: {0!r}".format(
+                target,))
     target = _importer(target)
     return _patch(target, attribute, new, spec, create)
-
 
 
 def _has_local_attr(obj, name):

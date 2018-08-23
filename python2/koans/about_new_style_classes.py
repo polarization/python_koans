@@ -53,7 +53,7 @@ class AboutNewStyleClasses(Koan):
         self.assertEqual(__, self.NewStyleClass.__class__.__name__)
         self.assertEqual(
             __,
-            type(self.NewStyleClass) == self.NewStyleClass.__class__)
+            isinstance(self.NewStyleClass, self.NewStyleClass.__class__))
 
     # ------------------------------------------------------------------
 
@@ -65,4 +65,4 @@ class AboutNewStyleClasses(Koan):
     def test_new_style_instances_have_same_class_as_type(self):
         new_style = self.NewStyleClass()
         self.assertEqual(__, new_style.__class__.__name__)
-        self.assertEqual(__, type(new_style) == new_style.__class__)
+        self.assertEqual(__, isinstance(new_style, new_style.__class__))

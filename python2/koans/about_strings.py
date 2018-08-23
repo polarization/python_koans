@@ -39,7 +39,8 @@ class AboutStrings(Koan):
         b = 'He said, "Don\'t"'
         self.assertEqual(__, (a == b))
 
-    def test_use_backslash_at_the_end_of_a_line_to_continue_onto_the_next_line(self):
+    def test_use_backslash_at_the_end_of_a_line_to_continue_onto_the_next_line(
+            self):
         string = "It was the best of times,\n\
 It was the worst of times."
         self.assertEqual(__, len(string))
