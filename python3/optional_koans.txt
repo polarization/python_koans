@@ -1,2 +1,2 @@
-optional_koans.about_my_optional_test.AboutOptionalAsserts
-optional_koans.about_my_optional_test2.AboutOptionalAsserts2
+optional_koans.about_optional_numbers.AboutOptionalNumbers
+optional_koans.about_optional_boolean.AboutOptionalBoolean

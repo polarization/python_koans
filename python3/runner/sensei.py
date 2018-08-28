@@ -43,7 +43,7 @@ class Sensei(MockableTestResult):
                                                  'AboutExtraCredit'] and \
                         not self.run_optional:
                     self.lesson_pass_count += 1
-                if helper.cls_name(test) not in ['AboutOptionalAsserts',
+                if helper.cls_name(test) not in ['AboutOptionalNumbers',
                                                  'AboutExtraOptionalCredit'] \
                         and self.run_optional:
                     self.optional_lesson_pass_count += 1
