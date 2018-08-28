@@ -1,5 +1,6 @@
 # Lines starting with # are ignored.
 koans.about_asserts.AboutAsserts
+koans.about_numbers.AboutNumbers
 koans.about_strings.AboutStrings
 koans.about_none.AboutNone
 koans.about_lists.AboutLists
